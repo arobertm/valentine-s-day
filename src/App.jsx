@@ -82,6 +82,7 @@ function App() {
     
         console.log("🎯 Imagini finale după procesare:", imagesList.length);
     
+        setMemories(imagesList.filter(Boolean)); // Elimină imaginile `null`
       } catch (error) {
         console.error("🚨 Eroare la fetch:", error);
       } finally {
