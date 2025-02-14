@@ -2,12 +2,11 @@ import './App.css';
 import { useState, useEffect, Suspense, lazy } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-// 🔹 Configurare Supabase
-const supabaseUrl = "https://dohlimnogrihixapnrxn.supabase.co";
-const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvaGxpbW5vZ3JpaGl4YXBucnhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk1NTQ5NzUsImV4cCI6MjA1NTEzMDk3NX0.FC3J_-gC-onYqtpvXTA42E_6KDV5TxhCsnlzfm6hCq4"; // 🔴 Înlocuiește cu cheia reală!
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-// 🔹 Componentă Lazy pentru imagini
+
 const LazyImage = lazy(() => import("./LazyImage"));
 
 function App() {
@@ -19,6 +18,10 @@ function App() {
     {
       date: 'Robert',
       text: 'Nu există cuvinte să descriu cât de specială ești pentru mine. Te iubesc la infinit! 💝'
+    },
+    {
+      date: 'Paula(e supi)',
+      text: 'Mersi, la fel! 💝'
     },
   ];
 
@@ -32,7 +35,7 @@ function App() {
           sortBy: { column: "name", order: "asc" }
         });
     
-        console.log("📸 Supabase response:", data); // 🔍 Debugging - Vezi ce returnează
+        console.log("📸 Supabase response:", data);
     
         if (error) {
           console.error("🚨 Eroare la fetch-ul imaginilor:", error);
@@ -46,11 +49,9 @@ function App() {
           return;
         }
     
-        // Elimină fișierele care nu sunt imagini
         const validFiles = data.filter(file => file.name && /\.(jpg|jpeg|png)$/i.test(file.name));
-        console.log("✅ Fișiere valide:", validFiles.length); // 🔍 Debugging - verifică câte imagini valide sunt
-    
-        // Evită duplicările folosind un `Set()`
+        console.log("✅ Fișiere valide:", validFiles.length); 
+
         const uniqueFiles = [...new Map(validFiles.map(file => [file.name, file])).values()];
         console.log("✅ Fișiere unice după eliminarea duplicatelor:", uniqueFiles.length);
     
@@ -81,7 +82,6 @@ function App() {
     
         console.log("🎯 Imagini finale după procesare:", imagesList.length);
     
-        setMemories(imagesList.filter(Boolean)); // Elimină imaginile `null`
       } catch (error) {
         console.error("🚨 Eroare la fetch:", error);
       } finally {
