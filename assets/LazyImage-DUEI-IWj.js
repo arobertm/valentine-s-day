@@ -1,1 +1,0 @@
-import{r,j as e}from"./index-B7k4_gXA.js";const d=({src:t,alt:s})=>{const[a,o]=r.useState(!1);return e.jsx("div",{className:`lazy-image-wrapper ${a?"loaded":"loading"}`,children:e.jsx("img",{src:t,alt:s,loading:"lazy",onLoad:()=>o(!0),style:{opacity:a?1:.5,transition:"opacity 0.3s ease-in-out"}})})};export{d as default};
