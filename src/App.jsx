@@ -23,6 +23,10 @@ function App() {
       date: 'Paula(e supi)',
       text: 'Mersi, la fel! 💝'
     },
+    {
+      date: 'Andrei (nu e supi)',
+      text: 'Traiasca nasii!'
+    }
   ];
 
   useEffect(() => {
